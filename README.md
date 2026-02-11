@@ -46,5 +46,4 @@ Open index.html in any modern browser
 © 2026 Suyothan Pandi V.
 Personal portfolio — feel free to take inspiration, but please don't copy as-is for your own public portfolio.
 Made with passion for embedded systems & robotics 🚀
-textJust select all the content above (from the first `#` to the last line), copy, go to your GitHub repo, edit/create `README.md`, paste, and commit.  
-It will look professional and give a good overview to anyone visiting your repo.
+
