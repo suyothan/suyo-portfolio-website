@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Suyothan Pandi V. — Embedded Systems Engineer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #070c17;
+            --card-bg: rgba(20, 30, 60, 0.72);
+            --accent: #3b82f6;
+            --accent-glow: #60a5fa;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: rgba(59,130,246,0.25);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            background-image:
+                linear-gradient(rgba(7,12,23,0.93), rgba(7,12,23,0.96)),
+                url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.65;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0 140px,
+                rgba(59,130,246,0.035) 141px,
+                transparent 142px
+            );
+            animation: flow 80s linear infinite;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        @keyframes flow { to { transform: translateX(-700px); } }
+
+        #progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+            width: 0%;
+            z-index: 9999;
+            box-shadow: 0 0 12px var(--accent);
+            transition: width 0.2s ease;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1.3rem 6% 1.3rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7,12,23,0.78);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 999;
+            transition: 0.4s;
+        }
+
+        nav.scrolled {
+            padding: 1rem 6% 1rem 6%;
+            background: rgba(7,12,23,0.92);
+        }
+
+        nav .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 2.1rem;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: white;
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        section {
+            padding: 160px 6% 110px;
+            max-width: 1280px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.22,1,0.36,1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: clamp(4.8rem, 12vw, 9.5rem);
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(90deg, var(--accent), var(--accent-glow), #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(59,130,246,0.45);
+        }
+
+        h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: clamp(2.4rem, 5.8vw, 3.8rem);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p, ul {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 820px;
+            margin: 0 auto 1.8rem;
+            text-align: center;
+        }
+
+        ul {
+            text-align: left;
+            max-width: 680px;
+            padding-left: 1.8rem;
+            list-style: none;
+        }
+
+        ul li {
+            margin-bottom: 0.9rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "▹";
+            color: var(--accent);
+            position: absolute;
+            left: -1.6rem;
+            font-size: 1.3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.6rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 28px rgba(59,130,246,0.45);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 65px rgba(96,165,250,0.65);
+        }
+
+        .watch-btn {
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .watch-btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px rgba(59,130,246,0.5);
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.4rem;
+            margin-top: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.4rem;
+            transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+        }
+
+        .card:hover {
+            transform: translateY(-14px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.55),
+                        0 0 50px rgba(59,130,246,0.45);
+            border-color: rgba(96,165,250,0.45);
+        }
+
+        .card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.45rem;
+            margin-bottom: 1.2rem;
+            color: white;
+        }
+
+        #typing {
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+            margin: 1.5rem 0 2.5rem;
+            color: var(--text-dim);
+            min-height: 3rem;
+            border-right: 3px solid var(--accent);
+            animation: blink 0.8s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .contact p {
+            font-size: 1.25rem;
+            margin: 1.2rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 6% 2.5rem;
+            color: var(--text-dim);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 120px 7% 90px; }
+            nav { padding: 1rem 5%; }
+            nav ul { gap: 1.4rem; }
+            .card-container { gap: 2rem; }
+            .card { padding: 1.8rem; }
+            h1 { font-size: clamp(3.2rem, 10vw, 6rem); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="navbar">
+    <div class="logo">Suyothan</div>
+    <ul>
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="hero">
+    <h1>Suyothan Pandi V.</h1>
+    <div id="typing"></div>
+    <a href="#experience" class="btn">Explore My Embedded World</a>
+</section>
+
+<section id="about">
+    <h2>Profile Summary</h2>
+    <p>
+        Highly driven 3rd Year Electrical & Computer Engineering student with strong hands-on experience in electronics, embedded systems, robotics, firmware development, debugging, and PCB design.<br><br>
+        Fast learner with excellent written and spoken English. Strong work ethic, problem-solving mindset, and deep interest in building real-world electronic products.
+    </p>
+</section>
+
+<section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="card-container">
+        <div class="card">
+            <h3>Core Skills</h3>
+            <ul>
+                <li>Microcontrollers (TM4C, STM32, ESP32, Arduino Uno)</li>
+                <li>Development tools & IDEs (STM32CubeIDE, CCS, Arduino IDE, Keil)</li>
+                <li>Firmware Development & Debugging</li>
+                <li>Communication protocols (UART, SPI, I²C, CAN)</li>
+                <li>Electronics Circuit Design & Testing</li>
+                <li>PCB Design (KiCad / Altium / Eagle)</li>
+                <li>Sensors & Actuators Integration (ArduIMU, SICK DT35, Baumer, ODrive)</li>
+                <li>C, Embedded C, Python (Basics), C++ (Basics)</li>
+                <li>Technical Documentation</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="experience">
+    <h2>Projects & Experience</h2>
+    <div class="card-container">
+
+        <div class="card">
+            <h3>Minor Project 2 – Web-Based Hospital Medicine Ordering & Autonomous Delivery Rover</h3>
+            <p><strong>January 2026 – Present (In Progress)</strong></p>
+            <p>Developing a hospital medicine ordering system integrated with a line-following autonomous delivery rover.</p>
+            <!-- No video link provided for this project -->
+        </div>
+
+        <div class="card">
+            <h3>MIT TECH TEAM Robocon Club – Embedded Engineer</h3>
+            <p><strong>August 2024 – November 2025</strong></p>
+            <ul>
+                <li>Designed and tested multiple embedded electronics systems using microcontrollers and sensors.</li>
+                <li>Developed firmware for robotic systems and performed hardware debugging.</li>
+                <li>Designed and built custom PCB modules.</li>
+                <li>Soldered and tested various PCBs.</li>
+                <li>Prepared technical documentation for prototypes.</li>
+            </ul>
+            <a href="https://youtu.be/j2O9DSAYW8Y?si=tL8fp1deJmQOyzXZ" target="_blank" class="watch-btn">Watch Video</a>
+        </div>
+
+        <div class="card">
+            <h3>Minor Project 1 – Automated Vision-Based Hospital Logistics & Navigation Rover</h3>
+            <p><strong>July 2025 – November 2025</strong></p>
+            <ul>
+                <li>Mechanically designed and built the rover from scratch.</li>
+                <li>Implemented computer vision-based navigation.</li>
+                <li>Performed complete electrical wiring and integration.</li>
+                <li>Developed motor control firmware on STM32 and interfaced with ESP32.</li>
+                <li>Prepared detailed report and journal documentation.</li>
+            </ul>
+            <a href="https://youtu.be/htXZUh0U238?si=e4zKUao70OftZ3hA" target="_blank" class="watch-btn">Watch Demo Video</a>
+        </div>
+
+        <div class="card">
+            <h3>Mini Project – light following Robot</h3>
+            <p><strong>February 2024 – June 2024</strong></p>
+            <ul>
+                <li>Built the robot from scratch.</li>
+                <li>interfaced photoresistor,ultrasonic sensor with arduino Uno with proper electrical wiring.</li>
+                <li>Prepared technical report and documentation.</li>
+            </ul>
+            <a href="https://youtube.com/shorts/Izo8C04YF7k?si=P__r-oNcJmb42RuW" target="_blank" class="watch-btn">Watch Video</a>
+        </div>
+
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p style="font-size: 1.3rem;">
+        Email: <a href="mailto:suyothanpandi@gmail.com" style="color: var(--accent-glow); text-decoration: none;">suyothanpandi@gmail.com</a>
+    </p>
+</section>
+
+<footer>
+    © 2026 Suyothan Pandi V. — Embedded Systems Engineer
+</footer>
+
+<script>
+// Reset scroll on load
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.addEventListener("load", () => {
+    history.replaceState(null, null, window.location.pathname);
+    window.scrollTo(0, 0);
+});
+
+// Progress bar
+window.addEventListener("scroll", () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById("progress").style.width = (scrollTop / scrollHeight) * 100 + "%";
+});
+
+// Scroll reveal
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+}, { threshold: 0.18 });
+sections.forEach(sec => observer.observe(sec));
+
+// Typing animation (one pass + cursor)
+const text = "Embedded Systems Engineer | Firmware Developer | Robotics Enthusiast";
+const typingElement = document.getElementById("typing");
+let i = 0;
+
+function type() {
+    if (i < text.length) {
+        typingElement.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 60);
+    } else {
+        typingElement.style.borderRight = "3px solid var(--accent)";
+    }
+}
+type();
+
+// Navbar scroll effect
+window.addEventListener("scroll", () => {
+    document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 120);
+});
+
+// Active nav link
+const navLinks = document.querySelectorAll("nav a");
+window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 220) current = section.getAttribute("id");
+    });
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) link.classList.add("active");
+    });
+});
+</script>
+
+</body>
+</html>
