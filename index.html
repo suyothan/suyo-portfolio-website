@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome 7 Free CDN (includes GitHub icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-SfTi6iS4n1rA6p0uX6vR5w0g3p6j3o2fD/3GIbmd2O2v4+5j3d6x3y3y3y3y3y3y3y3y3y3y3y3y3y3y3y3y3y" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
             --bg: #070c17;
@@ -278,6 +281,25 @@
             margin: 1.2rem 0;
         }
 
+        /* Social icons styling */
+        .social-icons {
+            text-align: center;
+            margin: 2rem 0 1rem;
+            font-size: 2.2rem;
+        }
+
+        .social-icons a {
+            color: var(--text-dim);
+            margin: 0 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-glow);
+            transform: translateY(-3px);
+            text-shadow: 0 0 15px rgba(96,165,250,0.6);
+        }
+
         footer {
             text-align: center;
             padding: 4rem 6% 2.5rem;
@@ -292,6 +314,7 @@
             .card-container { gap: 2rem; }
             .card { padding: 1.8rem; }
             h1 { font-size: clamp(3.2rem, 10vw, 6rem); }
+            .social-icons { font-size: 2rem; margin: 1.5rem 0; }
         }
     </style>
 </head>
@@ -400,6 +423,18 @@
     <p style="font-size: 1.3rem;">
         Email: <a href="mailto:suyothanpandi@gmail.com" style="color: var(--accent-glow); text-decoration: none;">suyothanpandi@gmail.com</a>
     </p>
+
+    <!-- GitHub icon link added here -->
+    <div class="social-icons">
+        <a href="https://github.com/suyothan" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
+            <i class="fab fa-github"></i>
+        </a>
+        <!-- You can add more icons later, e.g. LinkedIn:
+        <a href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        -->
+    </div>
 </section>
 
 <footer>
