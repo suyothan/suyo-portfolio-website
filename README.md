@@ -6,7 +6,7 @@ Personal portfolio website of **Suyothan Pandi V.** — Embedded Systems Enginee
 
 🔗 **Live Demo:** https://suyothan.github.io/suyo-portfolio-website/
      
-     To see my elite level portfolio website 
+ To see my elite level portfolio website 
      click on this:
      https://suyothan-portfolio.netlify.app/
 
